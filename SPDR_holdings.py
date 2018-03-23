@@ -5,13 +5,14 @@ from datetime import datetime
 import pymysql
 import sys
 from sqlalchemy import create_engine
-from MySQL_Authorization import MySQL_Auth
 import os
 import xlrd
 
-access_token = MySQL_Auth()
-conn = pymysql.connect(host='localhost', port=3306, user='tlack', passwd=access_token, db='bens_desk')
-engine = create_engine('mysql+pymysql://tlack:%s@localhost/bens_desk' % (access_token))
+access_token = '<insert user password>'
+user_id = '<insert user id>'
+schema = '<insert schema>'
+
+conn = pymysql.connect(host='localhost', port=3306, user=user_id, passwd=access_token, db=schema)
 
 def SPDR_scrape(etf_ticker, bond_class, url):
 
@@ -52,9 +53,9 @@ def SPDR_scrape(etf_ticker, bond_class, url):
     try:
         db = pymysql.connect(
             host='localhost',
-            user='tlack',
+            user=user_id,
             passwd=access_token,
-            db='bens_desk'
+            db=schema
         )
 
     except Exception as e:
